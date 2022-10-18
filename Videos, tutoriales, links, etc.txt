@@ -1,0 +1,12 @@
+Documentacion revisada:
+
+Programacion reactiva:
+https://www.youtube.com/watch?v=i0lJZeLdAi8
+https://www.youtube.com/watch?v=Kr2Zx179k2U
+
+
+
+Cuando usar webflux: 
+https://www.youtube.com/watch?v=M3jNn3HMeWg
+Crud mongo DB:
+https://www.youtube.com/watch?v=3J_X1srMk3s&t=1701s
