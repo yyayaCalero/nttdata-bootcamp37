@@ -10,3 +10,11 @@ Cuando usar webflux:
 https://www.youtube.com/watch?v=M3jNn3HMeWg
 Crud mongo DB:
 https://www.youtube.com/watch?v=3J_X1srMk3s&t=1701s
+
+Mitocode
+
+https://www.youtube.com/watch?v=dbNBJbAn4Ws
+
+
+
+Yo recibo un publicador, jamas me suscribo, lo proceso y lo devuelvo 
