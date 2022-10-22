@@ -1,6 +1,9 @@
 package com.nttdata.bootcamp.msbankproductrule.infrastructure.web.api.adapter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -13,6 +16,7 @@ import reactor.core.publisher.Mono;
 @Component
 public class ProductClientAdapter implements ProductRepositoryPort{
 
+	final static Logger logger= LoggerFactory.getLogger(ProductClientAdapter.class);
 
 	@Value("${client.msbankproduct.url}")
 	private String url;
@@ -24,10 +28,14 @@ public class ProductClientAdapter implements ProductRepositoryPort{
 		return client.get()
 				.uri(url.concat("/product/{code}"),codeProduct)
 				.retrieve()
+				.onStatus(HttpStatus::is4xxClientError, clientResponse-> Mono.error(new Exception("Error 400")))
+				.onStatus(HttpStatus::is5xxServerError, clientResponse-> Mono.error(new Exception("Error 500")))
 				.bodyToMono(Product.class);
 	}
 	
 	public Mono<Product> getProductAlternative(String codeProduct,Exception e) {
+		logger.info("getProductAlternative executed {}", codeProduct);
+		logger.error(e.getMessage());
 		return Mono.empty();
 	}
 
