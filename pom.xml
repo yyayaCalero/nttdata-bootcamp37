@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nttdata.bootcamp</groupId>
-	<artifactId>ms-bank-product-rule</artifactId>
+	<artifactId>ms-bank-product</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ms-bank-product-rule</name>
+	<name>ms-bank-product</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
@@ -55,8 +55,7 @@
 			    <groupId>org.springframework.cloud</groupId>
 			    <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 			    <version>2.1.4</version>
-<<<<<<< HEAD
-		</dependency>
+			</dependency>
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-aop</artifactId>
@@ -64,13 +63,6 @@
 		<dependency>
     		<groupId>ch.qos.logback</groupId>
    			<artifactId>logback-classic</artifactId>
-=======
-			</dependency>
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-aop</artifactId>
-		    <version>2.7.5</version>
->>>>>>> f1de697885afad0df93bbe91cf24a1433fda4348
 		</dependency>
 	</dependencies>
 
