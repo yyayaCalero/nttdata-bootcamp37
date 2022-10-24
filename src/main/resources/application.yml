@@ -1,0 +1,37 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: ms-apigateway
+  cloud:
+    gateway:
+      default-filters:
+      - name: SCGWGlobalFilter
+      routes:
+        - id: ms-bank-product
+          uri: http://localhost:8080/
+          predicates:
+            - Path=/product/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+        - id: ms-bank-product-rule
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/productRule/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+        - id: ms-bank-account
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/account/**
+          filters:
+          - name: SCGWPreFilter
+          - name: SCGWPostFilter
+
+
+  
+
+
