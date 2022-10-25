@@ -1,0 +1,15 @@
+server:
+  port: 8761
+  address: localhost
+eureka:
+  client:
+    #telling the server not to register himself in the service registry
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0    #wait time for subsequent sync
+logging:
+  level:
+    '[com.netflix.eureka]': 'OFF'
+    '[com.netflix.discovery]': 'OFF'
+    
