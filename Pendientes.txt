@@ -1,6 +1,5 @@
-Anotaciones importantes para la implementacion de eureka y docker
-- Se volvio a instalar el docker con la ultima version
-- en el pom, las referencias a localhost cambian por el nombre del servicio, incluyendo la conexion a mongodb
-- se debe establecer el mismo network para todos los microservicios 
-- En docker, no se hace referencias con localhost 
-
+Implementacion de configserver (Listo para hacer)
+Implementacion de servidor sonarq  (falta revisar)
+Implementacion de azure  (falta revisar)
+Implementacion de pruebas unitarias (falta revisar)
+Implementacion de logica de negocio faltante (Listo para hacer)
