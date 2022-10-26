@@ -1,0 +1,6 @@
+Anotaciones importantes para la implementacion de eureka y docker
+- Se volvio a instalar el docker con la ultima version
+- en el pom, las referencias a localhost cambian por el nombre del servicio, incluyendo la conexion a mongodb
+- se debe establecer el mismo network para todos los microservicios 
+- En docker, no se hace referencias con localhost 
+
