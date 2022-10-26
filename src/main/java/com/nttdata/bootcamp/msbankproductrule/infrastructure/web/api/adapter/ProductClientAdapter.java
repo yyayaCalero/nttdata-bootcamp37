@@ -28,7 +28,7 @@ public class ProductClientAdapter implements FindProductPort{
 	public Mono<Product> findProductById(String codeProduct) {	
 		
 		 Mono<ResponseEntity<Product>> response = client.get()
-				.uri(url.concat("/product/{code}"),codeProduct)
+				.uri(url.concat("/{code}"),codeProduct)
 				.retrieve()
 				.onStatus(HttpStatus::is4xxClientError, clientResponse-> Mono.error(new Exception("Error 400")))
 				.onStatus(HttpStatus::is5xxServerError, clientResponse-> Mono.error(new Exception("Error 500")))
