@@ -4,5 +4,6 @@ import reactor.core.publisher.Mono;
 
 public interface ValidateExistsAccountWithProductPort {
 
-	Mono<Boolean> validateExistsAccountWithProduct(String codeCustomer,String codeProduct);
+  /**Valida la existencia de una cuenta con determinado producto.*/
+	Mono<Boolean> validateExistsAccountWithProduct(String codeCustomer, String codeProduct);
 }

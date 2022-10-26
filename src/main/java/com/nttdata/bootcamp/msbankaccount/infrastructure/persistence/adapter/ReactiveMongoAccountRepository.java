@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 public interface ReactiveMongoAccountRepository extends ReactiveMongoRepository<AccountEntity, String>{
 
 
-	@Query("{'codeCustomer': ?0,'codeProduct' : ?1}")
-	public Flux<AccountEntity> findByCustomerAndProduct(String codeCustomer, String codeProduct);
-	
+  /**Metodo usado para buscar una cuenta asociada al cliente con un producto.*/
+  @Query( "{'codeCustomer': ?0,'codeProduct' : ?1}" )
+	Flux<AccountEntity> findByCustomerAndProduct(String codeCustomer, String codeProduct);
 }

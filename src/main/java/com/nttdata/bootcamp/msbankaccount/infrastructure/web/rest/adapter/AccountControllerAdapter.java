@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/account")
 public class AccountControllerAdapter {
 
-	final static Logger logger= LoggerFactory.getLogger(AccountControllerAdapter.class);
+	final Logger logger= LoggerFactory.getLogger(AccountControllerAdapter.class);
 	
 	@Autowired
 	private  CreateAccountUseCase createAccountUseCase;

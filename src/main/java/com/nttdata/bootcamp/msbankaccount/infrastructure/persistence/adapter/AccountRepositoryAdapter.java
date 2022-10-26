@@ -12,45 +12,47 @@ import com.nttdata.bootcamp.msbankaccount.infrastructure.persistence.entity.Acco
 import reactor.core.publisher.Mono;
 
 @Component
-public class AccountRepositoryAdapter implements CreateAccountPort,ValidateQuantityProductAllowedPort,ValidateExistsAccountWithProductPort{
+public class AccountRepositoryAdapter implements CreateAccountPort, ValidateQuantityProductAllowedPort, ValidateExistsAccountWithProductPort{
 
+  /**Interface reactiva de mongodb.*/
 	@Autowired
 	private ReactiveMongoAccountRepository reactiveMongoAccountRepository;
-	
+
 	@Override
 	public Mono<Boolean> validateExistsAccountWithProduct(String codeCustomer, String codeProduct) {
 		return reactiveMongoAccountRepository.findByCustomerAndProduct(codeCustomer, codeProduct)
 				.count()
-				.map(countProduct->{
-					if(countProduct>0)
-						return Boolean.TRUE;
-					else 
+				.map(countProduct -> {
+					if (countProduct > 0) {
+					  return Boolean.TRUE;
+					}
+					else {
 						return Boolean.FALSE;
+					}
 				});
-		
-		
+
 	}
 
 	@Override
-	public Mono<Boolean> validateQuantityProductAllowed(String codeCustomer, String codeProduct,Integer maxQuantityCompare) {
+	public Mono<Boolean> validateQuantityProductAllowed(final String codeCustomer, final String codeProduct, final Integer maxQuantityCompare) {
 		return reactiveMongoAccountRepository.findByCustomerAndProduct(codeCustomer, codeProduct)
 				.count()
-				.map(countProduct->{
-					Long  newQuantity = Long.sum(countProduct, 1);  
-					if(newQuantity.intValue()<=maxQuantityCompare)
-						return Boolean.TRUE;
-					else 
-						return Boolean.FALSE;
-				});
-		
+				.map(countProduct -> {
+					Long  newQuantity = Long.sum(countProduct, 1);
+  					if (newQuantity.intValue() <= maxQuantityCompare) {
+  						return Boolean.TRUE;
+  					}
+  					else {
+  						return Boolean.FALSE;
+  					}
+					});
 	}
 
 	@Override
-	public Mono<Account> createAccount(Mono<Account> account) {
+	public Mono<Account> createAccount(final Mono<Account> account) {
 		return account.map(AccountEntity::toAccountEntity)
 		         .flatMap(reactiveMongoAccountRepository::insert)
 				 .map(AccountEntity::toAccount);
-				
 	}
 
 }

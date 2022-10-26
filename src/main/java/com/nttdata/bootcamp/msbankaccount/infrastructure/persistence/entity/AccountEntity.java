@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class AccountEntity {
 
 	@Id
-	private String account;
+	private String numberAccount;
 	private String codeCustomer;
 	private String codeProduct;
 	private String codeCustomerType;

@@ -16,33 +16,42 @@ import com.nttdata.bootcamp.msbankaccount.domain.model.Account;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 
+
 @Service
-public class AccountService implements CreateAccountUseCase{
+public class AccountService implements CreateAccountUseCase {
 	
-	final static Logger logger= LoggerFactory.getLogger(AccountService.class);
+  final  Logger logger = LoggerFactory.getLogger(AccountService.class);
 	
+  /**Interface para crear cuentas.*/
 	@Autowired
 	private CreateAccountPort createAccountPort;
 
+  /**Interface  realizar validaciones.*/
 	@Autowired
-	private ValidateQuantityProductAllowedPort validateQuantityProductAllowedPort;
-	
+	private ValidateQuantityProductAllowedPort
+	        validateQuantityProductAllowedPort;
+
+  /**Interface para realizar validaciones.*/
 	@Autowired
-	private ValidateExistsAccountWithProductPort validateExistsAccountWithProductPort;
-	
+	private ValidateExistsAccountWithProductPort
+	        validateExistsAccountWithProductPort;
+
+  /**Interface del api de ProductRule.*/
 	@Autowired
 	private FindProductRulePort findProductRulePort;
-	
-	
+
+
+  /**Metodo encargado de crear la cuenta del cliente.*/
 	@Override
-	public Mono<Account> createAccount( Mono<Account> monoAccount) {
-		
+	public Mono<Account> createAccount(final Mono<Account> monoAccount) {
+
 		//TODO findCustomerById
 		return monoAccount.flatMap(account->{
 				return this.zipBussinesRulesValidateCreateAccount(account)
-							.map(tupla->{return (tupla.getT1()&&tupla.getT2())?Boolean.TRUE:Boolean.FALSE;})
-						    .flatMap(validate->{return (validate)?createAccountPort.createAccount(Mono.just(account)):Mono.empty();});
-												
+							.map(tupla -> {
+							  return (tupla.getT1() && tupla.getT2()) ? Boolean.TRUE : Boolean.FALSE; })
+						    .flatMap(validate -> {
+						    return validate ? createAccountPort.createAccount(Mono.just(account)):Mono.empty();});
 				}).onErrorResume(e -> {
 					  logger.error("Error createAccount {}",e.getMessage());
 					  return Mono.empty();
@@ -50,23 +59,24 @@ public class AccountService implements CreateAccountUseCase{
 	}
 
 
-	public Mono<Tuple2<Boolean,Boolean>> zipBussinesRulesValidateCreateAccount(Account account){
-		return findProductRulePort.findByCustomerTypeProductCustomerCategory(account.getCodeProduct(),account.getCodeCustomerType(),account.getCodeCustomerCategory())
-						    .flatMap(productRule->{
-								Mono<Boolean> monoValidateQuantityProduct=null;
-								Mono<Boolean> monoValidateExistsProduct=null;
+  /**Metodo encargado de unir procesos en paralelo.
+   * Validación para la creación de la cuenta del cliente.*/
+	public Mono<Tuple2<Boolean, Boolean>> zipBussinesRulesValidateCreateAccount(final Account account){
+		return findProductRulePort.findByCustomerTypeProductCustomerCategory(account.getCodeProduct(), account.getCodeCustomerType(), account.getCodeCustomerCategory())
+						    .flatMap(productRule -> {
+						    Mono<Boolean> monoValQuantityProduct = null;
+								Mono<Boolean> monoValExistsProduct = null;
 								if (productRule.getValidateQuantityProduct().equals(EnumValidator.YES.getValue())) {
-									monoValidateQuantityProduct=validateQuantityProductAllowedPort.validateQuantityProductAllowed(account.getCodeCustomer(),account.getCodeProduct(),productRule.getMaxQuantityProduct());		
-								}else {
-									monoValidateQuantityProduct=Mono.just(Boolean.TRUE);
+								  monoValQuantityProduct = validateQuantityProductAllowedPort.validateQuantityProductAllowed(account.getCodeCustomer(), account.getCodeProduct(), productRule.getMaxQuantityProduct());
+								} else {
+								  monoValQuantityProduct = Mono.just(Boolean.TRUE);
 								}
 								if (productRule.getValidateOtherProducts().equals(EnumValidator.YES.getValue())) {
-									monoValidateExistsProduct=validateExistsAccountWithProductPort.validateExistsAccountWithProduct(account.getCodeCustomer(), productRule.getCodeOtherProduct());
+								  monoValExistsProduct = validateExistsAccountWithProductPort.validateExistsAccountWithProduct(account.getCodeCustomer(), productRule.getCodeOtherProduct());
 								}else {
-									monoValidateExistsProduct=Mono.just(Boolean.TRUE);
+								  monoValExistsProduct = Mono.just(Boolean.TRUE);
 								}
-								return Mono.zip(monoValidateQuantityProduct, monoValidateExistsProduct);
-						    	
+								return Mono.zip(monoValQuantityProduct, monoValExistsProduct);
 						    });
 	}
 	
