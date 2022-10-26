@@ -1,6 +1,8 @@
 server:
   port: 8761
-  address: localhost
+spring:
+  application:
+    name: ms-bank-discovery
 eureka:
   client:
     #telling the server not to register himself in the service registry
@@ -12,4 +14,5 @@ logging:
   level:
     '[com.netflix.eureka]': 'OFF'
     '[com.netflix.discovery]': 'OFF'
+
     
