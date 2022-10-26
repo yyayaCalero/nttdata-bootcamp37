@@ -1,0 +1,147 @@
+Comisión por mantenimiento 
+Cantidad Maxima Movimientos sin Cobro comisión
+Cobro de comisión por transferencia 
+
+
+
+
+
+Para agregar un producto :
+Validar la cantidad permitida por tipo de cliente y categoria 
+Validar 
+
+
+Cliente Personal clasico 
+------------------------------
+Permite una cuenta de ahorro
+Permite Una cuenta corriente 
+Permite varias cuentas a plazo fijo 
+
+Cliente Personal VIP  
+------------------------------
+Permite una cuenta de ahorro
+Permite Una cuenta corriente 
+Permite varias cuentas a plazo fijo 
+
+
+Cliente Empresarial clasico 
+------------------------------
+No permite cuenta de ahorro 
+Permite varias cuentas corrientes 
+No permite cuenta a plazo fijo 
+
+*Cuenta bancaria: 
+Permite uno o mas Titulares 
+Permite Cero o mas firmates autorizados 
+
+
+Cliente Empresarial PYME 
+------------------------------
+No permite cuenta de ahorro 
+Permite varias cuentas corrientes 
+No permite cuenta a plazo fijo 
+
+
+*Cuenta corriente:
+Sin comision de mantenimiento 
+Validar tarjeta de credito 
+
+
+
+====================================================================
+
+
+
+Cuenta de ahorro 
+------------------------------
+Monto Comision por mantenimiento = 0 
+Cantidad maxima Movimientos mensuales (transacciones) sin cobro de comision = X
+Monto de comision por transacciones superadas= X 
+Monto minimo apertura = 0-X 
+
+-- cliente personal vip 
+Monto minimo promedio diario mensual = 0 
+Monto minimo promedio diario mensual = x 
+Validar tarjeta de credito 
+
+- empresarial 
+Añadir titulares = * 
+Añadir firmates  = * 
+
+
+Permite deposito 
+Permite retiro 
+
+
+Cuenta corriente 
+------------------------------
+Monto Comision por mantenimiento = X
+Cantidad maxima Movimientos mensuales (transacciones) sin cobro de comision = *
+Monto de comision por transacciones superadas= 0  
+Monto minimo apertura = 0-X 
+
+
+Permite deposito 
+Permite retiro 
+
+
+Cuenta plazo fijo 
+------------------------------
+
+Monto Comision por mantenimiento = 0 
+Cantidad maxima Movimientos mensuales (transacciones) sin cobro de comision = 1 
+Monto de comision por transacciones superadas= X   
+Monto minimo apertura = 0-X 
+
+
+Permite deposito 
+Permite retiro 
+
+
+
+Credito Personal 
+------------------------------
+No valida cuenta bancaria 
+Permite pagos 
+
+Credito Empresarial 
+------------------------------
+No valida cuenta bancaria 
+
+Permite pagos 
+
+Tarjeta de Credito 
+------------------------------
+No valida cuenta bancaria 
+
+Permite pagos 
+Permite Recargas 
+
+
+
+regla 							producto 			tipoCliente 			valor 
+comision por mantenimiento		C.Ahorro			Personal clasico 		0 
+comision por mantenimiento		C.Ahorro			Personal VIP	  		0
+comision por mantenimiento		C.Ahorro			Empresarial clasico		0 
+comision por mantenimiento		C.Ahorro			Empresarial PYME		0 
+
+
+
+
+
+
+
+
+
+
+Cliente puede hacer movimientos de acuerdo al producto que tenga:
+Movimiento :
+Retiro, deposito, pago, recarga , solicitar nuevo producto adicional, dar de baja a un producto 
+realizar transferencia entre cuentas del mismo cliente 
+realizar transferencia entre cuentas a otro cliente en el mismo banco 
+
+
+1. Publicador de registrar productos  (retorne una lista y un response status OK si todo bien y si no se registra status error)
+2. Publicador de registrar Tipo de clientes (retorna una lista de los tipo de clientes registrados, status ok y si no status error)
+
+

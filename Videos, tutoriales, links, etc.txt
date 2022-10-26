@@ -15,6 +15,28 @@ Mitocode
 
 https://www.youtube.com/watch?v=dbNBJbAn4Ws
 
+Clean arquitecture
+=====================
+https://www.youtube.com/watch?v=y3MWfPDmVqo
 
 
 Yo recibo un publicador, jamas me suscribo, lo proceso y lo devuelvo 
+
+Map=> 
+Maneja el objeto que se encuentra en el publicados y trabaja sobre ese objeto 
+Recibe un tipo T y devuelve un tipo R 
+Ejemplos: 
+
+Mono.just("10").map(Bigdecimal::new)
+Mono.just("10").map(s->new Bigdecimal(s+"99")
+
+Mono.just("10")=> convetir un objeto en un publicador (no se usa mucho)
+
+Filter=>
+Te paso el objeto de tipo T y tu me dices si cumple o no cumple 
+mantengo los objetos que si cumplen 
+
+DoOnNext=>
+Se usa sobre todo para pintar logs 
+Handle=>abortar flujo 
+
