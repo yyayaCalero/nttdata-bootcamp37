@@ -2,28 +2,30 @@ server:
   port: 9090
 spring:
   application:
-    name: ms-bank-apigateway
+    name: ms-bank-apigateway-service
+  config:
+    import: optional:configserver:http://ms-bank-config-server:8888
   cloud:
     gateway:
       default-filters:
       - name: SCGWGlobalFilter
       routes:
-        - id: ms-bank-product
-          uri: http://ms-bank-product:8080/
+        - id: ms-bank-product-service
+          uri: http://ms-bank-product-service:8080/
           predicates:
             - Path=/product/**
           filters:
           - name: SCGWPreFilter
           - name: SCGWPostFilter
-        - id: ms-bank-product-rule
-          uri: http://ms-bank-product-rule:8081/
+        - id: ms-bank-product-rule-service
+          uri: http://ms-bank-product-rule-service:8081/
           predicates:
             - Path=/productRule/**
           filters:
           - name: SCGWPreFilter
           - name: SCGWPostFilter
-        - id: ms-bank-account
-          uri: http://ms-bank-account:8082/
+        - id: ms-bank-account-service
+          uri: http://ms-bank-account-service:8082/
           predicates:
             - Path=/account/**
           filters:
@@ -33,7 +35,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://ms-bank-discovery:8761/eureka/
+      defaultZone: http://ms-bank-discovery-service:8761/eureka/
     registerWithEureka: true
     fetchRegistry: true
 
