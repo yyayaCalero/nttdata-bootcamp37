@@ -2,7 +2,9 @@ server:
   port: 8761
 spring:
   application:
-    name: ms-bank-discovery
+    name: ms-bank-discovery-service
+  config:
+    import: optional:configserver:http://ms-bank-config-server:8888
 eureka:
   client:
     #telling the server not to register himself in the service registry
@@ -14,5 +16,3 @@ logging:
   level:
     '[com.netflix.eureka]': 'OFF'
     '[com.netflix.discovery]': 'OFF'
-
-    
